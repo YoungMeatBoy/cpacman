@@ -3,13 +3,11 @@ import requests
 import pathlib
 from urllib.parse import urlparse
 from typing import Generator, List
-from package import Package
+from cpacman.package import Package
 
 class PackageManager():
-	def __init__(self, clean_files:bool = False, debug:bool = False, *args, **kwargs) -> None:
+	def __init__(self, clean_files:bool = False, *args, **kwargs) -> None:
 		self.clean_files:bool = clean_files
-		self.debug      :bool = debug
-
 	def __parse_requirements_line__(self, line:str, requirements_file:pathlib.Path) -> dict:
 		# result is a dict of arguments
 		# which will be givent to create new Package object
@@ -18,11 +16,11 @@ class PackageManager():
 		# Splitting line into two parts
 		# left part is a path where we will store a pacage
 		# Right part sets url for downloading package
-		#	author/packagename
-		#	https://github.com/author/packagename
-		#	https://github.com/author/packagename.git
-		#	git@github.com:author/packagename.git
-		#	git@github.com:author/packagename
+		#   author/packagename
+		#   https://github.com/author/packagename
+		#   https://github.com/author/packagename.git
+		#   git@github.com:author/packagename.git
+		#   git@github.com:author/packagename
 		line:List[str] = line.split('>')
 
 		if len(line) == 2:
@@ -30,10 +28,10 @@ class PackageManager():
 
 			# Here we take info from a link
 			# keys are:
-			#	author       - author of the package
-			#	projecktlink - link to github repo
-			#	loadlink     - link to download repo in zip
-			#	projecktname - name of the package
+			#   author       - author of the package
+			#   projecktlink - link to github repo
+			#   loadlink     - link to download repo in zip
+			#   projecktname - name of the package
 			link:dict = self.__parse_link__(link)
 			reqfile_directory:pathlib.Path = pathlib.Path(requirements_file.resolve().parent)
 			long_packagepath :pathlib.Path = reqfile_directory.joinpath(short_packagepath)
@@ -49,10 +47,10 @@ class PackageManager():
 	def __parse_link__(self, link:str) -> dict:
 		# Here we take info from a link
 		# keys are:
-		# 	author       - author of the package
-		#	projecktlink - link to github repo
+		#   author       - author of the package
+		#   projecktlink - link to github repo
 		#   loadlink     - link to download repo in zip
-		#	projecktname - name of the package
+		#   projecktname - name of the package
 		result:dict = dict()
 
 		if link:
@@ -85,7 +83,7 @@ class PackageManager():
 					yield Package(**info, debug = self.debug)
 				else:
 					print(f"Line was ignored due to incorrect schema!")
-					print(f"	{line}")
+					print(f"    {line}")
 
 	def load_packages_from_requirements_file(self, requirements_file:pathlib.Path):
 		requirements_file:pathlib.Path = pathlib.Path(requirements_file)
@@ -105,7 +103,7 @@ class PackageManager():
 				package.clean()
 		else:
 			print(f"Line was ignored due to incorrect schema!")
-			print(f"	{line}")
+			print(f"    {line}")
 
 	def find_requirements_files(self):
 		for filename in pathlib.Path.cwd().rglob("**/*"):
