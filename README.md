@@ -1,7 +1,7 @@
 # C package manager python package (works with `github`)
 
 
-# Installation
+# Installation (unavailable now)
 ```bash
 pip install cpacman
 ```
