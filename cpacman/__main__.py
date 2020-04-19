@@ -1,21 +1,26 @@
-from cpacman.packagemanager import PackageManager
-from argparse import ArgumentParser
+def main():
 
-parser = ArgumentParser()
+	from cpacman.packagemanager import PackageManager
+	from argparse import ArgumentParser
 
-parser.add_argument('-i' , '--install'           , type = str)
-parser.add_argument('-r' , '--requirements'      , type = str)
-parser.add_argument('-c' , '--clean'             , action = 'store_true', default = False)
-parser.add_argument('-ri', '--recursive_install' , action = 'store_true', default = False)
-args = parser.parse_args()
+	parser = ArgumentParser()
 
-manager = PackageManager(clean_files = args.clean)
+	parser.add_argument('-i' , '--install'           , type = str)
+	parser.add_argument('-r' , '--requirements'      , type = str)
+	parser.add_argument('-c' , '--clean'             , action = 'store_true', default = False)
+	parser.add_argument('-ri', '--recursive_install' , action = 'store_true', default = False)
+	args = parser.parse_args()
 
-if args.requirements:
-	manager.load_packages_from_requirements_file(args.requirements)
+	manager = PackageManager(clean_files = args.clean)
 
-elif args.install:
-	manager.install(args.install)
+	if args.requirements:
+		manager.load_packages_from_requirements_file(args.requirements)
 
-elif args.recursive_install:
-	manager.recursive_install()
+	elif args.install:
+		manager.install(args.install)
+
+	elif args.recursive_install:
+		manager.recursive_install()
+
+if __name__ == '__main__':
+	main()
