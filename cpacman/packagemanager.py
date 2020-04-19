@@ -8,6 +8,7 @@ from cpacman.package import Package
 class PackageManager():
 	def __init__(self, clean_files:bool = False, *args, **kwargs) -> None:
 		self.clean_files:bool = clean_files
+
 	def __parse_requirements_line__(self, line:str, requirements_file:pathlib.Path) -> dict:
 		# result is a dict of arguments
 		# which will be givent to create new Package object
@@ -80,7 +81,7 @@ class PackageManager():
 			for line in opened_requirements_file:
 				info:Dict = self.__parse_requirements_line__(line, requirements_file)
 				if info:
-					yield Package(**info, debug = self.debug)
+					yield Package(**info)
 				else:
 					print(f"Line was ignored due to incorrect schema!")
 					print(f"    {line}")
