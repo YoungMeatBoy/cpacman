@@ -1,7 +1,7 @@
 # C package manager python package (works with `github`)
 
 
-# Installation (unavailable now)
+# Installation
 ```bash
 pip install cpacman
 ```
@@ -9,16 +9,16 @@ pip install cpacman
 # Run
 ```bash
 # installing packages from file 
-python -m cpacman -r             requirements.cpacman
-python -m cpacman --requirements requirements.cpacman
+cpacman -r             requirements.cpacman
+cpacman --requirements requirements.cpacman
 
 # installing packages from all .cpacman files reqursively
-python -m cpacman -ri
-python -m cpacman --reqursive_install
+cpacman -ri
+cpacman --reqursive_install
 
 # you can remove all not .c .h .cpacman files
-python -m cpacman -r requirements.cpacman -с
-python -m cpacman -r requirements.cpacman --clean
+cpacman -r requirements.cpacman -с
+cpacman -r requirements.cpacman --clean
 ```
 
 # Flags
