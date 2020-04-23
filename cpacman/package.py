@@ -6,7 +6,7 @@ import requests
 from typing import List, Generator
 
 class Package():
-	def __init__(self,	packagepath:str, loadlink:str, projectlink:str, projectname:str, *args , **kwargs) -> None:
+	def __init__(self,  packagepath:str, loadlink:str, projectlink:str, projectname:str, *args , **kwargs) -> None:
 		# path to the place where it will be unpacked
 		self.packagepath :pathlib.Path = pathlib.Path(packagepath)
 		self.loadlink    :str          = loadlink
@@ -26,15 +26,15 @@ class Package():
 		if response.status_code == 200:
 			
 			# Path where user wants to store the package: (self.packagepath)
-			#	./path/to/package                                   (1)
+			#   ./path/to/package                                   (1)
 			# We create directory:
-			#	./path/to                                           (2)
+			#   ./path/to                                           (2)
 			# Then we load zip file to this directory:    (self.zipfile_path)
-			#	./path/to/package.zip                               (3)
+			#   ./path/to/package.zip                               (3)
 			# Then we unpack zip file to this directory and get folder:
-			#	./path/to/package-master/....(files of the package) (4)
+			#   ./path/to/package-master/....(files of the package) (4)
 			# Then we rename:
-			#	./path/to/package-master -> ./path/to/package		(5, 6)
+			#   ./path/to/package-master -> ./path/to/package       (5, 6)
 
 			# (2)
 			zipparent:pathlib.Path = pathlib.Path(self.zipfile_path.parent)
@@ -60,7 +60,7 @@ class Package():
 			with zipfile.ZipFile(self.zipfile_path) as zip_ref:
 				zip_ref.extractall(outdir)
 
-				# Removing loaded zip file
+			# Removing loaded zip file
 			self.zipfile_path.unlink()
 		
 			# (5, 6)
@@ -84,13 +84,13 @@ class Package():
 			extensions = ('.c', '.cpp', '.h', '.hpp', '.cpacman')
 			for filename in self.packagepath.rglob('./**/*'):
 				if filename.is_file() and not filename.suffix in extensions:
-					print(f"	{self.unpatch_path(filename)}")
+					print(f"    {self.unpatch_path(filename)}")
 					filename.unlink()
 
-	#	Sometimes search fails
-	#	as system cannot find path
-	#	This is a solution from StackOverflow
-	#		https://stackoverflow.com/a/57502760
+	#   Sometimes search fails
+	#   as system cannot find path
+	#   This is a solution from StackOverflow
+	#       https://stackoverflow.com/a/57502760
 	@staticmethod
 	def patch_path(path):
 		normalized = os.fspath(path.resolve())
